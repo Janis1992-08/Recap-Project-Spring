@@ -5,7 +5,6 @@ import org.example.recapprojectspring.model.Status;
 import org.example.recapprojectspring.model.Todo;
 import org.example.recapprojectspring.model.TodoWithoutId;
 import org.example.recapprojectspring.repository.TodoRepository;
-import org.example.recapprojectspring.service.TodoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +18,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -82,9 +80,7 @@ public class TodoServiceTest {
     void testGetTodoById_NotFound() {
         when(todoRepository.findById("1")).thenReturn(Optional.empty());
 
-        assertThrows(TodoNotFoundException.class, () -> {
-            todoService.getTodoById("1");
-        });
+        assertThrows(TodoNotFoundException.class, () -> todoService.getTodoById("1"));
 
         verify(todoRepository, times(1)).findById("1");
     }
